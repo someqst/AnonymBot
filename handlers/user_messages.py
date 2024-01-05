@@ -1,8 +1,7 @@
+from loader import db, bot
 from aiogram import F, Router
 from aiogram.types import Message
-from loader import db, bot
 from keyboards.builder import reply_builder
-import json
 
 
 router = Router()

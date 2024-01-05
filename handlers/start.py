@@ -1,9 +1,9 @@
-from aiogram import F, Router
+import pytz
 import datetime
+from loader import db
+from aiogram import F, Router
 from aiogram.types import Message
 from aiogram.filters import CommandStart
-from loader import db
-import pytz
 from keyboards.builder import reply_builder
 
 

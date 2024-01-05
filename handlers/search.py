@@ -1,8 +1,8 @@
-from aiogram.types import Message
-from aiogram import F, Router 
 from loader import db, bot
-from keyboards.builder import reply_builder
+from aiogram import F, Router 
+from aiogram.types import Message
 from aiogram.filters import Command, or_f
+from keyboards.builder import reply_builder
 
 
 router = Router()

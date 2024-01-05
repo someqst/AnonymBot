@@ -1,8 +1,8 @@
+import asyncio
+from loader import dp, bot
+from utils.notify import notify_admins
 from handlers import setup_message_routers
 from utils.set_commands import set_bot_cmd
-from utils.notify import notify_admins
-from loader import dp, bot
-import asyncio
 
 
 
