@@ -1,0 +1,7 @@
+.env структура
+
+BOT_TOKEN = 
+DBHOST = 
+DBUSER = 
+DBPASS = 
+DBNAME = 
