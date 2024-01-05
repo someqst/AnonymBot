@@ -10,8 +10,6 @@ class Settings(BaseSettings):
     DBPASS: SecretStr
     DBNAME: SecretStr
 
-    NGROK: SecretStr
-
     model_config = SettingsConfigDict(
         env_file = '.env',
         env_file_endcoding = 'utf-8'
