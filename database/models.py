@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, BigInteger, String, MetaData
+from sqlalchemy import Table, Column, BigInteger, Integer, String, MetaData
 
 
 metadata_obj = MetaData()
@@ -13,5 +13,6 @@ users = Table(
     Column("time_start", String),
     Column("chating_user", BigInteger),
     Column("ready", BigInteger, default=0),
-    Column("active", BigInteger)
+    Column("active", BigInteger),
+    Column("videonotes_available", Integer)
 )

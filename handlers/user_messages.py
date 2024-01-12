@@ -1,7 +1,8 @@
 from loader import db, bot
 from aiogram import F, Router
-from aiogram.types import Message
-from keyboards.builder import reply_builder
+from aiogram.types import Message, CallbackQuery
+from keyboards.builder import reply_builder, inline_builder
+from utils.factories import Accepter
 
 
 router = Router()
@@ -54,6 +55,26 @@ async def echo(message: Message):
             await bot.send_animation(reciever, message.animation.file_id, caption=message.caption, caption_entities=message.caption_entities, reply_to_message_id = reply, parse_mode=None)
 
         if message.content_type == 'video_note':
-            await bot.send_video_note(reciever, message.video_note.file_id, reply_to_message_id = reply)
+            if await db.video_notes_val(reciever) == 1:
+                await bot.send_video_note(reciever, message.video_note.file_id, reply_to_message_id = reply)
+            else:
+                option = '🔴'
+                await bot.send_message(reciever, 'Вам хотели отправить кружок. Включите возможность их принимать (можно отключить)',
+                                        reply_markup=inline_builder(f'Принимать {option}', Accepter().pack()))
+                await bot.send_message(message.chat.id, 'У пользователя отключена возможность принимать кружочки')
     else:
         await message.reply('У вас нет собеседника, нажмите кнопку ниже для поиска', reply_markup=reply_builder('Начать поиск'))
+
+
+@router.callback_query(Accepter.filter(F.action == 'accept_note'))
+async def accept_notes(call: CallbackQuery, callback_data: Accepter):
+    await call.answer()
+    if await db.video_notes_val(call.message.chat.id) == 0:
+        await db.accept_video_note(call.from_user.id, 1)
+        option = '🟢'
+    else:
+        await db.accept_video_note(call.from_user.id, 0)
+        option = '🔴'
+    
+    await call.message.edit_reply_markup(reply_markup=inline_builder(f'Принимать {option}', Accepter().pack()))
+

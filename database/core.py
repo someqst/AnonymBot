@@ -78,3 +78,14 @@ class DataBase:
                 writable = founder
             stmt = update(users).where(users.c.user_id == user).values(chating_user = writable, ready = 2)
             await self.stm(stmt)
+
+    async def video_notes_val(self, user_id):
+        query = select(users.c.videonotes_available).where(users.c.user_id == user_id)
+        return await self.qry_fone(query)
+    
+    async def accept_video_note(self, user_id, todo):
+        if todo == 1:
+            stmt = update(users).where(users.c.user_id == user_id).values(videonotes_available = 1)
+        else:
+            stmt = update(users).where(users.c.user_id == user_id).values(videonotes_available = 0)
+        await self.stm(stmt)
