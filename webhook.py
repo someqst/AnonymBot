@@ -19,7 +19,6 @@
 
 # @app.post(WEBHOOK_PATH)
 # async def bot_webhook(update: dict):
-#     print('сука')
 #     telegram_update = Update(**update)
 #     await dp.feed_update(bot = bot, update = telegram_update)
 
